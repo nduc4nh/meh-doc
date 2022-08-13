@@ -1,29 +1,36 @@
-from abc import abstractclassmethod
+class RepoInterface:
 
-class repo_interface:
-
-    @abstractclassmethod
-    def get_author(self):
+    def get_by_id(self, id_):
         pass
 
-    @abstractclassmethod
-    def get_author(self):
+    def create(self):
         pass
-    
-    @abstractclassmethod
-    def get_author(self):
+
+    def update_by_id(self, id_, data):
         pass
-    
-    @abstractclassmethod
-    def get_author(self):
+
+    def delete_by_id(self, id_):
         pass
-    
-    @abstractclassmethod
-    def get_author(self):
+
+
+class CategoryRepoInteface(RepoInterface):
+
+    def get_category_by_name(self, name):
         pass
-    
-    @abstractclassmethod
-    def get_author(self):
+
+    def get_category_by_name(self, name):
         pass
-    
-    
+
+    def delete_category_by_name(self, name):
+        pass
+
+
+class DocRepoInteface(CategoryRepoInteface):
+    def get_doc_by_title(self, title):
+        pass
+
+    def get_all_docs_by_cate_cate_id(self, cate_id):
+        pass
+
+    def get_all_docs_by_cate_name(self, cate_name):
+        pass
