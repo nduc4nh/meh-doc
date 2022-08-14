@@ -1,16 +1,16 @@
+import logging
+from model.dtos import CategoryDTO, DocumentDTO
+from model.common import Category, Document
+from utils.validators import ModelValidator
+from repositories.common import CategoryRepoInteface, DocRepoInteface
 from jproperties import Properties
 from pymongo import MongoClient
 import rsa
 import binascii
-from os.path import abspath 
+from os.path import abspath
 import sys
 sys.path.append(abspath("./"))
 # print(abspath("./"))
-from repositories.common import CategoryRepoInteface, DocRepoInteface
-from utils.validators import ModelValidator
-from model.common import Category, Document
-from model.dtos import CategoryDTO, DocumentDTO
-import logging
 
 
 PATH = abspath("../")
@@ -37,8 +37,9 @@ def get_mongo_cred():
         data['encripted_password'].encode())
 
     # Process private key
-    pv = list(map(int,pv.split(",")))
-    plain_password = rsa.decrypt(encrypted_password, rsa.PrivateKey(*pv)).decode()
+    pv = list(map(int, pv.split(",")))
+    plain_password = rsa.decrypt(
+        encrypted_password, rsa.PrivateKey(*pv)).decode()
 
     return data['uri'].replace("<password>", plain_password)
 
@@ -101,9 +102,9 @@ class MongoCategoryRepoImpl(CategoryRepoInteface):
         self.mongo_service = MongoClient(self.mongo_cred_connect)
         self.category_repo = self.mongo_service.get_database(
             "meh-doc")["categories"]
-    
 
     # If this class is created check if there's an existing one and use this instance
+
     def __new__(cls, _cache={}):
         try:
             return _cache["cate_impl"]
@@ -127,7 +128,7 @@ class MongoCategoryRepoImpl(CategoryRepoInteface):
         print(mongo_doc)
         if not self.model_validator.check_category_model(mongo_doc):
             raise Exception("model invalid")
-        
+
         self.category_repo.insert_one(mongo_doc)
         return mongo_doc
 
@@ -135,7 +136,8 @@ class MongoCategoryRepoImpl(CategoryRepoInteface):
         mongo_doc = data.get()
         if not self.model_validator.check_category_model(mongo_doc):
             raise Exception("model invalid")
-        self.category_repo.update_one({"id": id}, {"$set":mongo_doc}, upsert=True)
+        self.category_repo.update_one(
+            {"id": id}, {"$set": mongo_doc}, upsert=True)
         return mongo_doc
 
     def get_by_id(self, id):

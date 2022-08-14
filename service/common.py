@@ -5,6 +5,9 @@ class Service:
     
     # Doc related
 
+    def create_doc(self, data):
+        pass
+
     def get_all_doc(self, document_id):
         pass
 
@@ -19,6 +22,9 @@ class Service:
 
     # Category related
 
+    def create_category(self, data):
+        pass
+
     def get_all_categroy(self):
         pass
 
@@ -28,7 +34,7 @@ class Service:
     def delete_category(self):
         pass
 
-    def update_categoryu(self, category_id, data):
+    def update_category(self, category_id, data):
         pass
 
     def get_all_doc_by_category(self, category_id):

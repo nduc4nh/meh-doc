@@ -24,6 +24,9 @@ class BasicControllerUI:
 
     def update_document_by_name(self, doc_name):
         pass
+    
+    def create_document(self, data):
+        pass
 
     # Category
 
@@ -48,6 +51,9 @@ class BasicControllerUI:
     def update_category_by_name(self, cate_name):
         pass
 
+    def create_category(self, data):
+        pass
+    
 
 class FilterControllerUI:
     def get_documents_alike(self, part_string):
