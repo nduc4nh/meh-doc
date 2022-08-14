@@ -15,6 +15,7 @@ class Category:
     def __init__(self, data=None) -> None:
         """
         """
+        self.id_ = data["id"]
         self.name = data["name"]
         self.created_at = data["created_at"]
         self.docs = data["docs"]
@@ -53,6 +54,7 @@ class Document:
     def __init__(self, data) -> None:
         """
         """
+        self.id_ = data["id"]
         self.title = data["title"]
         self.author_id = data["author_id"]
         self.category = data["category"]
