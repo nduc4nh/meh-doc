@@ -1,3 +1,9 @@
+from os.path import abspath
+import sys
+sys.path.append(abspath("./model"))
+from .dtos import CategoryDTO
+
+
 class Author:
     def __init__(self) -> None:
         """
@@ -41,7 +47,18 @@ class Category:
             'doc_name': doc_name
         })
         return self
-
+    
+    def to_dict(self):
+        return {
+            "id": self.id_,
+            "name": self.name,
+            "docs": self.docs,
+            "created_at": self.created_at,
+        }
+    
+    @staticmethod
+    def from_dto(dto:CategoryDTO):
+        return Category(data = dto.get())
 
 class Document:
     # {
@@ -67,3 +84,13 @@ class Document:
             'category_name': category_name
         }
         return self
+    
+    def to_dict(self):
+        return {
+            "id": self.id_,
+            "title": self.title,
+            "author_id": self.author_id,
+            "category": self.category,
+            "created_at": self.created_at,
+            "metadata": self.metadata
+        }

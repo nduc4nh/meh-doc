@@ -45,7 +45,7 @@ class BasicControllerUI:
     def delete_category_by_name(self, cate_name):
         pass
 
-    def update_category_by_id(self, cate_id):
+    def update_category_by_id(self, cate_id, data):
         pass
 
     def update_category_by_name(self, cate_name):

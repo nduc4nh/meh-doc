@@ -1,15 +1,21 @@
 from os.path import abspath
 import sys
-sys.path.append("./model")
+sys.path.append(abspath("./model"))
 from common import Category, Document
+from pydantic import BaseModel
+from typing import List
 
-class CategoryDTO:
-    def __init__(self, category_model: Category) -> None:
-        self.id = category_model.id_
-        self.name = category_model.name
-        self.docs = category_model.docs
-        self.created_at = category_model.created_at
-        
+class CategoryDTO(BaseModel):
+    # def __init__(self, category_model: Category) -> None:
+    #     self.id = category_model.id_
+    #     self.name = category_model.name
+    #     self.docs = category_model.docs
+    #     self.created_at = category_model.created_at
+    id: str
+    name: str
+    docs: List[dict]
+    created_at: str
+
     def get(self):
         return {
             "id":self.id,
@@ -17,6 +23,11 @@ class CategoryDTO:
             "docs":self.docs,
             "created_at":self.created_at
         }
+    
+    @staticmethod
+    def from_model(cate:Category):
+        return CategoryDTO(** cate.to_dict())
+
     
 class DocumentDTO:
     def __init__(self, document_model: Document) -> None:
@@ -36,5 +47,9 @@ class DocumentDTO:
             "metadata":self.meta,
             "author_id":self.author_id
         }
+    
+    @staticmethod
+    def from_model(doc:Document):
+        return CategoryDTO(** doc.to_dict())
     
     

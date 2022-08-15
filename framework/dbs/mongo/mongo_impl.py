@@ -123,25 +123,25 @@ class MongoCategoryRepoImpl(CategoryRepoInteface):
     def _fetch(self, resp):
         return list(resp)[0]
 
-    def create(self, data: CategoryDTO):
-        mongo_doc = data.get()
-        print(mongo_doc)
+    def create(self, data: Category):
+        mongo_doc = data.to_dict()
+        # print(mongo_doc)
         if not self.model_validator.check_category_model(mongo_doc):
             raise Exception("model invalid")
 
         self.category_repo.insert_one(mongo_doc)
-        return mongo_doc
+        return Category(mongo_doc)
 
-    def update_by_id(self, id, data: CategoryDTO):
-        mongo_doc = data.get()
+    def update_by_id(self, id, data: Category):
+        mongo_doc = data.to_dict()
         if not self.model_validator.check_category_model(mongo_doc):
             raise Exception("model invalid")
         self.category_repo.update_one(
             {"id": id}, {"$set": mongo_doc}, upsert=True)
-        return mongo_doc
+        return data
 
     def get_by_id(self, id):
-        return self._fetch(self.category_repo.find({"id": id}))
+        return Category(self._fetch(self.category_repo.find({"id": id})))
 
     def delete_by_id(self, id):
         self.category_repo.delete_one({"id": id})
@@ -150,4 +150,12 @@ class MongoCategoryRepoImpl(CategoryRepoInteface):
         self.category_repo.delete_one({"name": name})
 
     def get_category_by_name(self, name):
-        return self._fetch(self.category_repo.find({"name": name}))
+        return Category(self._fetch(self.category_repo.find({"name": name})))
+
+    def get_all_category(self):
+        cates = list(self.category_repo.find({}))
+        return [Category(data = ele) for ele in cates]
+    
+    def get_all_category_page(self, page = 1):
+        cates = list(self.category_repo.find({}).limit(10).skip((page - 1)*10))
+        return [Category(data = ele) for ele in cates]
