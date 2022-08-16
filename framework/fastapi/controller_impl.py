@@ -4,8 +4,7 @@ from fastapi_utils.inferring_router import InferringRouter
 from os.path import abspath
 import sys
 sys.path.append(abspath("./"))
-from model.common import Category
-from model.dtos import CategoryDTO
+from model.common import  CategoryDTO
 from controller.api_common import BasicControllerUI
 from framework.fastapi.service_impl import CategoryService
 app = FastAPI()

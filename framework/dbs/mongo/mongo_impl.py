@@ -1,5 +1,5 @@
-import logging
-from model.dtos import CategoryDTO, DocumentDTO
+# import logging
+# from model.dtos import CategoryDTO, DocumentDTO
 from model.common import Category, Document
 from utils.validators import ModelValidator
 from repositories.common import CategoryRepoInteface, DocRepoInteface
