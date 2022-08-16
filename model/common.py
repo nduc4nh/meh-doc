@@ -103,10 +103,10 @@ class CategoryDTO(BaseModel):
     #     self.name = category_model.name
     #     self.docs = category_model.docs
     #     self.created_at = category_model.created_at
-    id: str
+    id: str = None
     name: str
-    docs: List[dict]
-    created_at: str
+    docs: List[dict] = []
+    created_at: str = ""
 
     def get(self):
         return {
