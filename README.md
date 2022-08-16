@@ -1,6 +1,6 @@
 # meh-doc
 
-Apips for doc management service
+Apis for doc management service
 
 # Description:
 
